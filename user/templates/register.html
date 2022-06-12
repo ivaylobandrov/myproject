@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="auth">
+    <div class="card">
+        <div class="auth__header text-center">
+            <p>Create an account</p>
+        </div>
+
+        <form method="POST" action="{% url 'register' %}" class="form auth__form">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form__field">
+                <label for="formInput#text">{{field.label}}</label>
+                {{field}}
+
+<!--                {% if field.help_text %}-->
+<!--                <small>{{field.help_text}}</small>-->
+<!--                {% endif %}-->
+
+                {% for error in field.errors %}
+                <p style="color: red;">{{error}}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <div class="auth__actions">
+                <input class="btn btn--sub btn--lg" type="submit" value="Register" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block content %}
+
+<body>
+<div><h1 align="center">Gallery</h1></div>
+
+<main>
+    <section>
+        <div>
+            <div>
+                <h2>Search for <span>Cards</span></h2>
+            </div>
+
+            <div>
+                <form action="{% url 'gallery' %}" method="get">
+                    <div>
+                        <label for="formInput#search">Search By card </label>
+                        <input type="text" name="search_query"
+                               placeholder="Search by Card name" value="{{search_query}}" />
+                        <input type="submit" value="Search" />
+                        <br>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+    <div class="container">
+                {% for card in cards %}
+                    <div>
+                    <div><a href="{% url 'presentation-card' card.id %}"><h3 class="h3tag">{{card.title}}</h3></a></div>
+                <div class="divbox">
+                     <a href="{% url 'presentation-card' card.id %}">
+                            {% if card.featured_image %}
+                                <img class="image" src="{{card.featured_image.url}}" />
+                            {% endif %}
+                     </a>
+                </div>
+                    </div>
+                {% endfor %}
+    </div>
+
+    </section>
+</main>
+
+{% include 'pagination.html' with queryset=cards custom_range=custom_range %}
+
+</body>
+
+{% endblock content %}

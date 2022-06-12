@@ -1,0 +1,29 @@
+{% load static %}
+
+<header class="header">
+    <div class="container container--narrow">
+        <a href="{% url 'gallery' %}" class="header__logo">
+            <img src="{% static 'images/60817.png' %}" alt="Logo" />
+        </a>
+        <nav class="header__nav">
+            <input type="checkbox" id="responsive-menu" />
+            <ul class="header__menu">
+                <li class="header__menuItem"><a class="button" href="{% url 'create-card' %}">Add Card</a></li>
+                <li class="header__menuItem"><a class="button" href="{% url 'gallery' %}">Account</a></li>
+
+                {% if request.user.is_authenticated %}
+                    <li class="header__menuItem"><a class="button">Logged as {{ user.username }} </a><a href="{% url 'logout' %}" class="button">Logout</a></li>
+                {% else %}
+                <li class="header__menuItem"><a href="{% url 'login' %}" class="button">Login/Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+{% block content %}
+{% endblock %}
+
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
