@@ -14,8 +14,8 @@
                 success:function(cards){
                     for (var i = 0; i < cards.length; i++)
                     {
-                        var row=$('<tr><td>'+cards[i].id+'</td><td><img src="'+cards[i].featured_image+'"/></td></tr>');
-                        $("#Mytable").append(row)
+                        var row=$('<div><a href="{% url 'presentation-card' 'cards[i].id' %}"><div class="divtext">'+cards[i].title+'</div></a><div class="divimg"><img src="'+cards[i].featured_image+'"/></div></div>');
+                        $("#MyDiv").append(row)
                     }
                 }
             });
@@ -26,60 +26,17 @@
 
 <body>
 
-<div><h1 align="center">Gallery</h1></div>
+<div class="divtitle"><h1 align="center">Gallery</h1></div>
 
     <center>
-        <table id="Mytable" border="1">
-            <tr>
-                <th>Card ID</th>
-                <th>Image</th>
-            </tr>
-        </table>
+        <div class="container" id="MyDiv">
+        </div>
     </center>
-
-<!--<main>-->
-<!--    <section>-->
-<!--        <div>-->
-<!--            <div>-->
-<!--                <h2>Search for <span>Cards</span></h2>-->
-<!--            </div>-->
-
-<!--            <div>-->
-<!--                <form action="{% url 'gallery' %}" method="get">-->
-<!--                    <div>-->
-<!--                        <label for="formInput#search">Search By card </label>-->
-<!--                        <input type="text" name="search_query"-->
-<!--                               placeholder="Search by Card name" value="{{search_query}}" />-->
-<!--                        <input type="submit" value="Search" />-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-
-<!--    <section class="section">-->
-<!--    <div class="container">-->
-<!--                {% for card in cards %}-->
-<!--                    <div>-->
-<!--                    <div><a href="{% url 'presentation-card' card.id %}"><h3 class="h3tag">{{card.title}}</h3></a></div>-->
-<!--                <div class="divbox">-->
-<!--                     <a href="{% url 'presentation-card' card.id %}">-->
-<!--                            {% if card.featured_image %}-->
-<!--                                <img class="image" src="{{card.featured_image.url}}" />-->
-<!--                            {% endif %}-->
-<!--                     </a>-->
-<!--                </div>-->
-<!--                    </div>-->
-<!--                {% endfor %}-->
-<!--    </div>-->
-
-<!--    </section>-->
-<!--</main>-->
 
 {% include 'pagination.html' with queryset=cards custom_range=custom_range %}
 
 </body>
 
 {% endblock content %}
+
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}" />

@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
-from rest_framework.permissions import AllowAny
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .forms import ImageForm
@@ -51,7 +48,7 @@ def update_presentation_card(request, pk):
 
 
 @api_view(['GET'])
-def presentation_cards_view(request):
+def show_cards_info(request):
     cards = PresentationCard.objects.all()
     page = request.GET.get("page")
     results = 6
@@ -65,22 +62,21 @@ def presentation_cards_view(request):
     except EmptyPage:
         page = paginator.num_pages
         cards = paginator.page(page)
-    context = {"cards": cards, "paginator": paginator}
-    return render(request, "gallery/gallery.html", context)
 
-
-@api_view(['GET'])
-def show_presentation_cards_info(request):
-    cards = PresentationCard.objects.all()
     serializer = PresentationCardSerializer(cards, many=True)
     return Response(serializer.data)
 
 
-def show_card(request):
+def show_cards(request):
     return render(request, "gallery/gallery.html")
 
 
-# def show_card(request, pk):
-#     card = PresentationCard.objects.get(id=pk)
-#     context = {'card': card}
-#     return render(request, "gallery/gallery.html", context)
+@api_view(['GET'])
+def show_card_info(request, pk):
+    card = PresentationCard.objects.get(id=pk)
+    serializer = PresentationCardSerializer(card, many=False)
+    return Response(serializer.data)
+
+
+def show_card(request, pk):
+    return render(request, "gallery/presentation_card.html")

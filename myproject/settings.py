@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "gallery.apps.GalleryConfig",
     "user.apps.UserConfig",
     "rest_framework",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'

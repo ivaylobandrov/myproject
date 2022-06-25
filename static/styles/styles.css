@@ -23,8 +23,23 @@ background-image:url("cool-background.png");
 }
 
 img {
-  padding-left: 50%;
   width: 100%;
+}
+
+.divimg {
+    align-items: center;
+    width: 300px;
+    height: 200px;
+}
+
+.divtext {
+    align-text: center;
+    padding-bottom: 5px;
+}
+
+.divtitle {
+    padding-bottom: 50px;
+    padding-top: 10px;
 }
 
 .tag > i.im {
@@ -58,6 +73,7 @@ img {
 
 .header__logo > img {
   height: 3.8rem;
+   padding-left: 50%;
 }
 
 .header__nav > ul {
@@ -239,4 +255,10 @@ img {
 .h3tag {
   color: black;
   font-size: 30px;
+}
+
+.project__thumbnail {
+  height: 25rem;
+  object-fit: cover;
+  object-position: top center;
 }
