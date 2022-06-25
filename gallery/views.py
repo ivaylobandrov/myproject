@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from .forms import ImageForm
 from .models import PresentationCard
+from .serializers import PresentationCardSerializer
 
 
 def create_presentation_card(request):
@@ -47,31 +50,37 @@ def update_presentation_card(request, pk):
     return render(request, "gallery/update_presentation_card.html", context)
 
 
-class PresentationCardsView(APIView):
-    permission_classes = (AllowAny,)
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = "gallery/gallery.html"
+@api_view(['GET'])
+def presentation_cards_view(request):
+    cards = PresentationCard.objects.all()
+    page = request.GET.get("page")
+    results = 6
+    paginator = Paginator(cards, results)
 
-    def get(self, request, *args, **kwargs):
-        cards = PresentationCard.objects.all()
-        page = request.GET.get("page")
-        results = 6
-        paginator = Paginator(cards, results)
-
-        try:
-            cards = paginator.page(page)
-        except PageNotAnInteger:
-            page = 1
-            cards = paginator.page(page)
-        except EmptyPage:
-            page = paginator.num_pages
-            cards = paginator.page(page)
-        context = {"cards": cards, "paginator": paginator}
-        return render(request, self.template_name, context)
+    try:
+        cards = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        cards = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        cards = paginator.page(page)
+    context = {"cards": cards, "paginator": paginator}
+    return render(request, "gallery/gallery.html", context)
 
 
-class ShowPresentationCardInfoView(APIView):
-    def get(self, request, pk):
-        card = PresentationCard.objects.get(id=pk)
-        context = {"presentation_card": card}
-        return render(request, "gallery/presentation_card.html", context)
+@api_view(['GET'])
+def show_presentation_cards_info(request):
+    cards = PresentationCard.objects.all()
+    serializer = PresentationCardSerializer(cards, many=True)
+    return Response(serializer.data)
+
+
+def show_card(request):
+    return render(request, "gallery/gallery.html")
+
+
+# def show_card(request, pk):
+#     card = PresentationCard.objects.get(id=pk)
+#     context = {'card': card}
+#     return render(request, "gallery/gallery.html", context)

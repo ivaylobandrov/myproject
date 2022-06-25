@@ -2,50 +2,81 @@
 
 {% load static %}
 {% block content %}
+<head>
+    <title>Gallery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            $.ajax({
+                url:'http://127.0.0.1:8000/gallery/cards/api',
+                dataType:'JSON',
+                success:function(cards){
+                    for (var i = 0; i < cards.length; i++)
+                    {
+                        var row=$('<tr><td>'+cards[i].id+'</td><td><img src="'+cards[i].featured_image+'"/></td></tr>');
+                        $("#Mytable").append(row)
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+
 
 <body>
+
 <div><h1 align="center">Gallery</h1></div>
 
-<main>
-    <section>
-        <div>
-            <div>
-                <h2>Search for <span>Cards</span></h2>
-            </div>
+    <center>
+        <table id="Mytable" border="1">
+            <tr>
+                <th>Card ID</th>
+                <th>Image</th>
+            </tr>
+        </table>
+    </center>
 
-            <div>
-                <form action="{% url 'gallery' %}" method="get">
-                    <div>
-                        <label for="formInput#search">Search By card </label>
-                        <input type="text" name="search_query"
-                               placeholder="Search by Card name" value="{{search_query}}" />
-                        <input type="submit" value="Search" />
-                        <br>
-                        <br>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+<!--<main>-->
+<!--    <section>-->
+<!--        <div>-->
+<!--            <div>-->
+<!--                <h2>Search for <span>Cards</span></h2>-->
+<!--            </div>-->
 
-    <section class="section">
-    <div class="container">
-                {% for card in cards %}
-                    <div>
-                    <div><a href="{% url 'presentation-card' card.id %}"><h3 class="h3tag">{{card.title}}</h3></a></div>
-                <div class="divbox">
-                     <a href="{% url 'presentation-card' card.id %}">
-                            {% if card.featured_image %}
-                                <img class="image" src="{{card.featured_image.url}}" />
-                            {% endif %}
-                     </a>
-                </div>
-                    </div>
-                {% endfor %}
-    </div>
+<!--            <div>-->
+<!--                <form action="{% url 'gallery' %}" method="get">-->
+<!--                    <div>-->
+<!--                        <label for="formInput#search">Search By card </label>-->
+<!--                        <input type="text" name="search_query"-->
+<!--                               placeholder="Search by Card name" value="{{search_query}}" />-->
+<!--                        <input type="submit" value="Search" />-->
+<!--                        <br>-->
+<!--                        <br>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
 
-    </section>
-</main>
+<!--    <section class="section">-->
+<!--    <div class="container">-->
+<!--                {% for card in cards %}-->
+<!--                    <div>-->
+<!--                    <div><a href="{% url 'presentation-card' card.id %}"><h3 class="h3tag">{{card.title}}</h3></a></div>-->
+<!--                <div class="divbox">-->
+<!--                     <a href="{% url 'presentation-card' card.id %}">-->
+<!--                            {% if card.featured_image %}-->
+<!--                                <img class="image" src="{{card.featured_image.url}}" />-->
+<!--                            {% endif %}-->
+<!--                     </a>-->
+<!--                </div>-->
+<!--                    </div>-->
+<!--                {% endfor %}-->
+<!--    </div>-->
+
+<!--    </section>-->
+<!--</main>-->
 
 {% include 'pagination.html' with queryset=cards custom_range=custom_range %}
 
