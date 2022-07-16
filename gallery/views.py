@@ -1,15 +1,14 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
-from rest_framework.pagination import PageNumberPagination
+from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .forms import ImageForm
-from .models import PresentationCard
-from .serializers import PresentationCardSerializer
 from gallery.filters import CardFilter
+from gallery.forms import ImageForm
+from gallery.models import PresentationCard
+from gallery.serializers import PresentationCardSerializer
 
 
 def create_presentation_card(request):
@@ -51,7 +50,7 @@ def update_presentation_card(request, pk):
 
 
 @permission_classes([AllowAny])
-@api_view(['GET'])
+@api_view(["GET"])
 def show_cards_info(request):
     paginator = PageNumberPagination()
     paginator.page_size = 6
@@ -69,7 +68,7 @@ def show_cards(request):
     return render(request, "gallery/gallery.html")
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def show_card_info(request, pk):
     card = PresentationCard.objects.get(id=pk)
     serializer = PresentationCardSerializer(card, many=False)
