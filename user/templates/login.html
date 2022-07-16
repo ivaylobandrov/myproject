@@ -1,9 +1,6 @@
 {% extends 'main.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-  <body>
+<body>
 
   <div class="auth">
 
@@ -45,7 +42,7 @@
                 <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
             </div>
         </form>
-        <li class="header__menuItem"><a href="{% url 'password_reset' %}" class="btn btn--sub">Forget Password?</a></li>
+        <li class="header__menuItem"><a href="{% url 'password_reset' %}" class="btn btn--sub">Forgot Password?</a></li>
 
         <div class="auth__alternative">
             <p>Don’t have an Account?</p>
@@ -57,6 +54,5 @@
 
 
 
-  </body>
-</html>
+</body>
 {% endblock %}

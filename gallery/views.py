@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import api_view
+
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .forms import ImageForm
 from .models import PresentationCard
 from .serializers import PresentationCardSerializer
+from gallery.filters import CardFilter
 
 
 def create_presentation_card(request):
@@ -47,24 +50,19 @@ def update_presentation_card(request, pk):
     return render(request, "gallery/update_presentation_card.html", context)
 
 
+@permission_classes([AllowAny])
 @api_view(['GET'])
 def show_cards_info(request):
+    paginator = PageNumberPagination()
+    paginator.page_size = 6
     cards = PresentationCard.objects.all()
-    page = request.GET.get("page")
-    results = 6
-    paginator = Paginator(cards, results)
+    filterset = CardFilter(request.GET, queryset=cards)
+    if filterset.is_valid():
+        cards = filterset.qs
+    result_page = paginator.paginate_queryset(cards, request)
 
-    try:
-        cards = paginator.page(page)
-    except PageNotAnInteger:
-        page = 1
-        cards = paginator.page(page)
-    except EmptyPage:
-        page = paginator.num_pages
-        cards = paginator.page(page)
-
-    serializer = PresentationCardSerializer(cards, many=True)
-    return Response(serializer.data)
+    serializer = PresentationCardSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 def show_cards(request):

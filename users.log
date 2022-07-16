@@ -1,0 +1,27 @@
+WARNING:Not Found: /favicon.ico
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:User's information updated: gosho@email.com - gosho1
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+ERROR:Internal Server Error: /user/logout/
+Traceback (most recent call last):
+  File "C:\Users\Ivo\Desktop\Itido Project\myproject\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\Ivo\Desktop\Itido Project\myproject\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py", line 54, in logout_user
+    logging.info("User logged out: {} - {}".format(request.user, request.email))
+AttributeError: 'WSGIRequest' object has no attribute 'email'
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:User logged out: AnonymousUser
+INFO:User logged out: AnonymousUser
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:User registered: petkan1
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:User logged in petkan1
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\user\views.py changed, reloading.
+INFO:C:\Users\Ivo\Desktop\Itido Project\myproject\gallery\models.py changed, reloading.

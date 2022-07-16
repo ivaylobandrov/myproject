@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    <title>Me</title>
+</head>
+<body>
+
+<form class="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form__field">
+        <label for="formInput#text">{{field.label}}</label>
+        {{field}}
+    </div>
+    {% endfor %}
+    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+</form>
+    <br>
+    <a href="{% url 'password_reset' %}" class="btn btn--sub">Password Reset Link</a>
+
+</body>
+
+{% endblock content %}

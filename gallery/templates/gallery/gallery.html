@@ -8,14 +8,51 @@
     <script>
         $(document).ready(function()
         {
+            const path = window.location.pathname
+            const searchParams = new URLSearchParams(window.location.search)
+            const page = searchParams.get("page")
+            const title = searchParams.get("title")
+            let queryParams = []
+            if (page){
+                queryParams.push("page=" + page)
+            }
+            if (title){
+                queryParams.push("title=" + title)
+            }
+            let queryString = ""
+            if (queryParams.length){
+                queryString = `?${queryParams.join("&")}`
+            }
             $.ajax({
-                url:'http://127.0.0.1:8000/gallery/cards/api',
+                url:'http://127.0.0.1:8000/presentation-cards/api' + queryString,
                 dataType:'JSON',
-                success:function(cards){
+                success:function(response){
+                    const cards = response.results
                     for (var i = 0; i < cards.length; i++)
                     {
-                        var row=$('<div><a href="{% url 'presentation-card' 'cards[i].id' %}"><div class="divtext">'+cards[i].title+'</div></a><div class="divimg"><img src="'+cards[i].featured_image+'"/></div></div>');
+                        var row=$(`<div><a href="presentation-card/${cards[i].id}"><div class="divtext">${cards[i].title}</div></a><div class="divimg"><img src="${cards[i].featured_image}"/></div></div>`);
                         $("#MyDiv").append(row)
+                    }
+
+                    const next = response.next
+                    if (next) {
+                        let pageNumberIndex = next.indexOf('?')
+                        let nextPage = next.substring(pageNumberIndex)
+                        $("#next").attr("href",window.location.pathname + nextPage)
+                    }
+                    $("#spanId").html(page || 1)
+                    const pageCount = Math.ceil(response.count / 6)
+                    $("#span2Id").html(pageCount)
+
+                    const previous = response.previous
+                    if (previous) {
+                        let pageNumberIndex = previous.indexOf("?")
+                        let previousPage = "?page=1"
+                        if (pageNumberIndex >= 0) {
+                            previousPage = previous.substring(pageNumberIndex)
+                        }
+                        $("#previous").attr("href",window.location.pathname + previousPage)
+
                     }
                 }
             });
@@ -26,14 +63,26 @@
 
 <body>
 
+<div>
+    <form id="searchForm" class="form" method="get">
+        <div class="form__field">
+            <label for="formInput#search">Search cards by title </label>
+            <input class="input input--text" id="formInput#search" type="text" name="title"
+                   placeholder="Search by Card title" value="{{title}}" />
+        </div>
+
+        <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+    </form>
+</div>
+
 <div class="divtitle"><h1 align="center">Gallery</h1></div>
 
     <center>
         <div class="container" id="MyDiv">
         </div>
-    </center>
+        <div><a id="previous">Previous</a> Page:<span id="spanId"></span>of <span id="span2Id"></span> <a id="next">Next</a></div>
 
-{% include 'pagination.html' with queryset=cards custom_range=custom_range %}
+    </center>
 
 </body>
 

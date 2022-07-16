@@ -2,25 +2,48 @@
 
 {% block content %}
 
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            const path = window.location.pathname
+            let fistSlashIndex = path.indexOf('/',1)
+            let secondSlashIndex = path.indexOf('/',fistSlashIndex + 1)
+            let id = path.substring(fistSlashIndex + 1, secondSlashIndex)
+            console.log(id)
+            console.log(path)
+            $.ajax({
+                url:`http://127.0.0.1:8000/presentation-card/${id}/api`,
+                type: "GET",
+                dataType:'JSON',
+                success:function(card){
+                    {
+                        var row=$(`<div><div class="divtext">${card.title}</div><div class="divtext"><img src="${card.featured_image}"/></div><div class="divtext">${card.description}</div>
+
+                        <div>
+                        {% if request.user.is_authenticated %}
+                        <div><a href="/presentation-card/${card.id}/update">Update</a></div>
+                        <div><a href="/presentation-card/${card.id}/delete">Delete</a></div>
+                        {% endif %}
+
+                        </div>
+                        </div>`);
+                        $("#MyDiv").append(row)
+                    }
+                }
+            });
+        });
+    </script>
+
+</head>
+
 <body>
+    <center>
+        <div class="container" id="MyDiv">
+        </div>
+    </center>
 
-<div>
-{{ presentation_card.title }}
-{{ presentation_card.description }}
-{{ presentation_card.created }}
-{% if presentation_card.featured_image %}
-            <img src="{{presentation_card.featured_image.url}}" />
-{% endif %}
-
-{% if request.user.is_authenticated %}
-    <a href="{% url 'delete-presentation-card' presentation_card.id %}?next=/gallery">
-        <button>Delete</button></a>
-    <a href="{% url 'update-presentation-card' presentation_card.id %}?next=/gallery">
-        <button>Update</button></a>
-    {% endif %}
-
-<a href="{% url 'gallery' %}" class="header__logo">Go back to Gallery</a>
-
-</div>
 </body>
 {% endblock content %}
