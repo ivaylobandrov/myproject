@@ -1,10 +1,10 @@
 import logging
 
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, UserUpdateForm
+from django.shortcuts import redirect, render
 
+from .forms import CustomUserCreationForm, UserUpdateForm
 
 logging.basicConfig(
     filename="users.log", level=logging.INFO, format="%(levelname)s:%(message)s"
