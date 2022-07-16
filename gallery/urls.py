@@ -2,7 +2,6 @@ from django.urls import path
 
 from gallery import views
 
-
 urlpatterns = [
     path("create-card/", views.create_presentation_card, name="create-card"),
     path("", views.show_cards, name="gallery"),

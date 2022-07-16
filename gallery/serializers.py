@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import PresentationCard
+
+from gallery.models import PresentationCard
 
 
 class PresentationCardSerializer(serializers.ModelSerializer):

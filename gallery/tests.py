@@ -3,7 +3,6 @@ Tests for Gallery APIs.
 """
 from django.test import TestCase
 from django.urls import reverse
-
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -25,7 +24,9 @@ class PublicGalleryAPITests(TestCase):
 
     def test_list_cards(self):
         """Test list cards."""
-        PresentationCard.objects.create(title="first title", description="description")
+        PresentationCard.objects.create(
+            title="first title", description="description"
+        )
         PresentationCard.objects.create(
             title="second title", description="second description"
         )
@@ -40,5 +41,4 @@ class PublicGalleryAPITests(TestCase):
         )
         url = detail_url(card.id)
         response = self.client.get(url)
-        print("RESPONSE", response.json())
         self.assertEqual(response.status_code, status.HTTP_200_OK)
