@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-if-k(qpzovne833bx5r7y-u96hx4i-k7*&n)53zmste&jm0-8y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "ivaylo-itido.herokuapp.com"]
 
 
 # Application definition
@@ -147,3 +147,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 CRISPY_TEMPLATE_PACK = "bootstrap"
+
+if os.getcwd() == "/app":
+    DEBUG = False

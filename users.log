@@ -4227,3 +4227,10 @@ INFO:User logged in None
 INFO:User logged in None
 WARNING:Not Found: /favicon.ico
 INFO:User logged in gosho
+ERROR:Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING:Bad Request: /
+ERROR:Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING:Bad Request: /favicon.ico
+INFO:/myproject/myproject/settings.py changed, reloading.
+WARNING:Not Found: /favicon.ico
+INFO:User logged in gosho
