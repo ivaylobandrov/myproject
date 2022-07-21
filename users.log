@@ -4225,3 +4225,5 @@ AttributeError: 'NoneType' object has no attribute 'username'
 INFO:/myproject/user/views.py changed, reloading.
 INFO:User logged in None
 INFO:User logged in None
+WARNING:Not Found: /favicon.ico
+INFO:User logged in gosho
