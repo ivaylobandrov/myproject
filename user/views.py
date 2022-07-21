@@ -24,7 +24,7 @@ def user_login(request):
         except:
             "Hello"
         user = authenticate(request, username=username, password=password)
-        logging.info("User logged in {}".format(user.username))
+        logging.info("User logged in {}".format(user))
 
         if user is not None:
             login(request, user)
