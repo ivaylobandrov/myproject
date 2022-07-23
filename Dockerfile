@@ -1,13 +1,13 @@
-FROM python:3.8-alpine
+FROM python:3.9-alpine3.13
 LABEL maintainer="bandrov17"
 
 ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /requirements.txt
-COPY /myproject /myproject
-COPY /scripts /scripts
+COPY . .
+COPY ./scripts /scripts
 
-WORKDIR /myproject
+WORKDIR ./
 EXPOSE 8000
 
 RUN python -m venv /py && \

@@ -150,6 +150,3 @@ MEDIA_ROOT = '/vol/web/media'
 STATIC_ROOT = '/vol/web/static'
 
 CRISPY_TEMPLATE_PACK = "bootstrap"
-
-if os.getcwd() == "/app":
-    DEBUG = False

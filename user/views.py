@@ -1,14 +1,8 @@
-import logging
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from .forms import CustomUserCreationForm, UserUpdateForm
-
-logging.basicConfig(
-    filename="users.log", level=logging.INFO, format="%(levelname)s:%(message)s"
-)
 
 
 def user_login(request):
@@ -24,7 +18,6 @@ def user_login(request):
         except:
             "Hello"
         user = authenticate(request, username=username, password=password)
-        logging.info("User logged in {}".format(user))
 
         if user is not None:
             login(request, user)
@@ -44,7 +37,6 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             user.save()
-            logging.info("User registered: {}".format(user.username))
 
             login(request, user)
             return redirect("gallery")
@@ -66,9 +58,6 @@ def me(request, pk):
         form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            logging.info(
-                "User's information updated: {} - {}".format(user.email, user.username)
-            )
             return redirect("gallery")
 
     context = {"form": form}
