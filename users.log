@@ -4234,3 +4234,12 @@ WARNING:Bad Request: /favicon.ico
 INFO:/myproject/myproject/settings.py changed, reloading.
 WARNING:Not Found: /favicon.ico
 INFO:User logged in gosho
+WARNING:Not Found: /images/images/dsc00840_Ume41JJ.jpg
+WARNING:Not Found: /images/images/dsc00840_Br9GIlX.jpg
+WARNING:Not Found: /images/images/dsc00840_Br9GIlX.jpg
+WARNING:Not Found: /images/images/dsc00840_Ume41JJ.jpg
+WARNING:Not Found: /images/images/dsc00840_Ume41JJ.jpg
+WARNING:Not Found: /images/images/dsc00840_Br9GIlX.jpg
+WARNING:Not Found: /images/images/dsc00840_Br9GIlX.jpg
+INFO:User logged in None
+INFO:User registered: gosho

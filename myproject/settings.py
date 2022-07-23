@@ -21,12 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-if-k(qpzovne833bx5r7y-u96hx4i-k7*&n)53zmste&jm0-8y"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "ivaylo-itido.herokuapp.com"]
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.environ.get('ALLOWED_HOSTS', '').split(',')
+    )
+)
 
 
 # Application definition
@@ -137,14 +143,13 @@ EMAIL_HOST_PASSWORD = "yqrswebwmubkhtcq"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = "/static/"
-
-MEDIA_URL = "/images/"
+STATIC_URL = "/static/static/"
+MEDIA_URL = "/static/images/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
 
 CRISPY_TEMPLATE_PACK = "bootstrap"
 
