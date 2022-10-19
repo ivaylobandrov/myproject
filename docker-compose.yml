@@ -20,6 +20,7 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=databasepassword
+      - DOMAIN_ADDRESS=${DOMAIN_ADDRESS}
     depends_on:
       - db
 

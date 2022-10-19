@@ -15,7 +15,7 @@
             console.log(id)
             console.log(path)
             $.ajax({
-                url:`http://127.0.0.1:8000/presentation-card/${id}/api`,
+                url:`{{DOMAIN_ADDRESS}}/presentation-card/${id}/api`,
                 type: "GET",
                 dataType:'JSON',
                 success:function(card){
