@@ -65,7 +65,9 @@ def show_cards_info(request):
 
 
 def show_cards(request):
-    return render(request, "gallery/gallery.html")
+    return render(request, "gallery/gallery.html", context={
+        'DOMAIN_ADDRESS': os.environ.get('DOMAIN_ADDRESS')
+    })
 
 
 @api_view(["GET"])

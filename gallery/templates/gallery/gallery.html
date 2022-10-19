@@ -24,7 +24,7 @@
                 queryString = `?${queryParams.join("&")}`
             }
             $.ajax({
-                url:'http://127.0.0.1:8000/presentation-cards/api' + queryString,
+                url:'{{DOMAIN_ADDRESS}}/presentation-cards/api' + queryString,
                 dataType:'JSON',
                 success:function(response){
                     const cards = response.results
