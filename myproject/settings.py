@@ -132,7 +132,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = "yqrswebwmubkhtcq"
+EMAIL_HOST_PASSWORD = "emailpassword"
 
 
 # Static files (CSS, JavaScript, Images)
